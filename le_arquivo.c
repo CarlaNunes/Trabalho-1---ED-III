@@ -12,7 +12,7 @@ int le_arquivo(FILE *arquivo){
     int i = 0;
     Metro metro[200];
 
-    int bufSize = 300;
+    int bufSize = 30;
     char cabecalho[bufSize];
 
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
@@ -21,8 +21,10 @@ int le_arquivo(FILE *arquivo){
 #if 1 
         const char separador[2] = ",";
         char buffer[bufSize];
+        
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
+          
             //printf("=============================\n");
             //puts(buffer);
             
@@ -44,8 +46,8 @@ int le_arquivo(FILE *arquivo){
                 
                token = strtok(NULL, separador);
           
-               int tam = strlen(token);
-               if(tam < 3){
+               //int tam = strlen(token);
+               if(token == NULL){
                   //char lixo[] = "$";
                   
                   metro[i].codProxEst= 0;//-1 depois mudar. 
@@ -57,8 +59,8 @@ int le_arquivo(FILE *arquivo){
                                   
                }
                 token = strtok(NULL, separador);
-               int tam2 = strlen(token); 
-                if(tam2 < 3){
+                
+                if(token == NULL){
                   //char lixo[] = "$";
                   
                   metro[i].distanciaProxEst= 0;//-1 depois mudar
@@ -70,8 +72,8 @@ int le_arquivo(FILE *arquivo){
                                   
                }
                 token = strtok(NULL, separador);
-                int tam3 = strlen(token); 
-                if(tam3 < 3){
+                
+                if(token == NULL){
                   //char lixo[] = "$";
                   
                   metro[i].codLinhaInteg= 0;//-1 depois mudar
@@ -84,8 +86,8 @@ int le_arquivo(FILE *arquivo){
                }
 
                  token = strtok(NULL, separador);
-                int tam4 = strlen(token); 
-                if(tam4 < 3){
+                
+                if(token == NULL){
                   //char lixo[] = "$";
                   
                   metro[i].codEstacaoInteg= 0;//-1 depois mudar
@@ -104,7 +106,8 @@ int le_arquivo(FILE *arquivo){
              
         }
         //Testando
-        for(i = 0; i < 500; i++){
+        /*
+        for(i = 0; i < 200; i++){
             printf("----------------------\n");
             printf("codEstação: %d\n", metro[i].codEstacao);
             printf("nomeEstação: %s\n", metro[i].nomeEstacao);
@@ -119,7 +122,7 @@ int le_arquivo(FILE *arquivo){
             
             printf("\n");
         }
-        
+        */
 #endif
         fclose(arquivo);
         free(metro[i].nomeEstacao);
