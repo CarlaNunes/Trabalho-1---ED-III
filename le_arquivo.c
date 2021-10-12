@@ -12,7 +12,7 @@ int le_arquivo(FILE *arquivo){
     int i = 0;
     Metro metro[200];
 
-    int bufSize = 30;
+    int bufSize = 300;
     char cabecalho[bufSize];
 
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
@@ -35,15 +35,22 @@ int le_arquivo(FILE *arquivo){
 
                 metro[i].nomeEstacao = (char*)malloc(sizeof(char));
                 token = strtok(NULL, separador);
-                strcpy(metro[i].nomeEstacao,token);
-
+                
+                 if( token != NULL ) {
+                  strcpy(metro[i].nomeEstacao,token);
+                 }
+                 
                 token = strtok(NULL, separador);
-                metro[i].codLinha = atoi(token);
-
+                  if( token != NULL ) {
+                    metro[i].codLinha = atoi(token);
+                  }
+                  
                 metro[i].nomeLinha = (char*)malloc(sizeof(char));
                 token = strtok(NULL, separador);
-                strcpy(metro[i].nomeLinha,token);
-                
+                  if( token != NULL ) {  
+                    strcpy(metro[i].nomeLinha,token);
+                  }
+                  
                token = strtok(NULL, separador);
           
                //int tam = strlen(token);
@@ -58,6 +65,7 @@ int le_arquivo(FILE *arquivo){
                  metro[i].codProxEst = atoi(token);
                                   
                }
+               
                 token = strtok(NULL, separador);
                 
                 if(token == NULL){
@@ -71,6 +79,7 @@ int le_arquivo(FILE *arquivo){
 
                                   
                }
+               
                 token = strtok(NULL, separador);
                 
                 if(token == NULL){
@@ -106,7 +115,7 @@ int le_arquivo(FILE *arquivo){
              
         }
         //Testando
-        /*
+        
         for(i = 0; i < 200; i++){
             printf("----------------------\n");
             printf("codEstação: %d\n", metro[i].codEstacao);
@@ -122,7 +131,7 @@ int le_arquivo(FILE *arquivo){
             
             printf("\n");
         }
-        */
+        
 #endif
         fclose(arquivo);
         free(metro[i].nomeEstacao);
