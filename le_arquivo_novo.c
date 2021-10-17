@@ -21,6 +21,8 @@ int le_arquivo_novo(FILE *arquivo){
     int bufSize = 300;
     char cabecalho[bufSize];
     char *token;
+    char  *str;
+    str = strdup(buffer);
 
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
         printf("Erro ao abrir o arquivo.\n");
@@ -28,12 +30,13 @@ int le_arquivo_novo(FILE *arquivo){
 #if 1 
         const char separador[2] = ",";
         char buffer[bufSize];
+        
 
-       
+        str = strdup(buffer);
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
           
-              token = strsep(&string,separador);
+              token = strsep(&str,separador);
               metro[i].codEstacao = atoi(token);  
 
             i += 1;
@@ -64,6 +67,7 @@ int le_arquivo_novo(FILE *arquivo){
         //free(r);
     }
     
+    free(str);
     return i;
 }
 
