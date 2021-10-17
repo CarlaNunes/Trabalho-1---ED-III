@@ -1,7 +1,9 @@
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include<ctype.h>
+#include <ctype.h>
 
 #include "funcoes.h"
 
@@ -11,8 +13,8 @@ int main() {
     int cont = 0; // número de pessoas lidas 
 
     
-    cont = le_arquivo(arquivo); 
-    printf("pessoas lidas: %d\n",cont);
+    cont = le_arquivo_novo(arquivo); 
+    printf("Estações lidas: %d\n",cont);
 
-
+ return 0;
 }

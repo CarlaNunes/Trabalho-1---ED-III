@@ -18,10 +18,12 @@ int le_arquivo_novo(FILE *arquivo){
     int i = 0;
     Metro metro[200];
     
-    int bufSize = 300;
+    int bufSize =600;
     char cabecalho[bufSize];
     char *token;
-    char  *str;
+    char  *str,*ptr;
+    char buffer[bufSize];
+
     str = strdup(buffer);
 
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
@@ -29,21 +31,22 @@ int le_arquivo_novo(FILE *arquivo){
     } else {
 #if 1 
         const char separador[2] = ",";
-        char buffer[bufSize];
         
-
-        str = strdup(buffer);
+        
+        
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
-          
+              int aux = 0;  
               token = strsep(&str,separador);
-              metro[i].codEstacao = atoi(token);  
+              //aux = atoi(token);
+              printf("\n %s",token);
+              //metro[i].codEstacao =  strtol(token, &ptr, 10);;  
 
             i += 1;
              
         }
         //Testando
-        
+        /*
         for(i = 0; i < 200; i++){
             printf("----------------------\n");
             printf("codEstação: %d\n", metro[i].codEstacao);
@@ -58,8 +61,9 @@ int le_arquivo_novo(FILE *arquivo){
             
             
             printf("\n");
-        }
         
+        }
+        */
 #endif
         fclose(arquivo);
         //free(metro[i].nomeEstacao);
