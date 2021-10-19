@@ -74,6 +74,7 @@ int le_arquivo_novo(FILE *arquivo){
         }
         */
         free(metro[i].nomeEstacao);
+        free(str);
 #endif
         fclose(arquivo);
         //free(metro[i].nomeEstacao);
@@ -81,7 +82,7 @@ int le_arquivo_novo(FILE *arquivo){
         //free(r);
     }
     
-    free(str);
+    
     return i;
 }
 
