@@ -51,11 +51,31 @@ int le_arquivo_novo(FILE *arquivo){
 
               strcpy(metro[i].nomeEstacao,token);
 
+              token = strsep(&str,separador);
+              metro[i].codLinha = atoi(token);
+
+
+              metro[i].nomeLinha = (char*)malloc(sizeof(char));
+              token = strsep(&str,separador);
+              strcpy(metro[i].nomeLinha,token);
+
+              token = strsep(&str,separador);
+              metro[i].codProxEst = atoi(token);
+
+              token = strsep(&str,separador);
+              metro[i].distanciaProxEst = atoi(token);
+
+               token = strsep(&str,separador); 
+               metro[i].codLinhaInteg = atoi(token);
+
+               token = strsep(&str,separador); 
+               metro[i].codEstacaoInteg= atoi(token);
             i += 1;
+            //free(str);
              
         }
         //Testando
-        /*
+        
         for(i = 0; i < 200; i++){
             printf("----------------------\n");
             printf("codEstação: %d\n", metro[i].codEstacao);
@@ -71,10 +91,12 @@ int le_arquivo_novo(FILE *arquivo){
             
             printf("\n");
         
+
         }
-        */
-        free(metro[i].nomeEstacao);
-        free(str);
+        
+        //free(metro[i].nomeEstacao);
+        //free(token);
+        //free(str);
 #endif
         fclose(arquivo);
         //free(metro[i].nomeEstacao);
