@@ -17,14 +17,15 @@ typedef char* string;
 int le_arquivo_novo(FILE *arquivo){
     int i = 0;
     Metro metro[200];
-    
-    int bufSize =600;
+     int bufSize = 600;
+   
     char cabecalho[bufSize];
     char *token;
     char  *str,*ptr;
+   
     char buffer[bufSize];
 
-    str = strdup(buffer);
+    //str = strdup(buffer);
 
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
         printf("Erro ao abrir o arquivo.\n");
@@ -36,11 +37,19 @@ int le_arquivo_novo(FILE *arquivo){
         
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
-              int aux = 0;  
+            int aux = 0;  
+           
+            
+
+              str = strdup(buffer);
               token = strsep(&str,separador);
-              //aux = atoi(token);
-              printf("\n %s",token);
-              //metro[i].codEstacao =  strtol(token, &ptr, 10);;  
+              
+              metro[i].codEstacao = atoi(token);
+
+              metro[i].nomeEstacao = (char*)malloc(sizeof(char));
+              token = strsep(&str,separador);
+
+              strcpy(metro[i].nomeEstacao,token);
 
             i += 1;
              
@@ -64,6 +73,7 @@ int le_arquivo_novo(FILE *arquivo){
         
         }
         */
+        free(metro[i].nomeEstacao);
 #endif
         fclose(arquivo);
         //free(metro[i].nomeEstacao);

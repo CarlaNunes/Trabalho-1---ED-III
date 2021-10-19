@@ -10,7 +10,7 @@
 int main() {
     Metro metro[200];
     FILE *arquivo;
-    int cont = 0; // número de pessoas lidas 
+    int cont = 0; 
 
     
     cont = le_arquivo_novo(arquivo); 
