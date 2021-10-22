@@ -18,8 +18,9 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
   char lixo[] = "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$";//Terceiro item do cabeçalho
   char proxLista[8];//Dúvida aqui
   int tamReg = 0;
+  char *nomeEs,*nomeLi;
 
-  if ((arquivo = fopen("estacoes.bin", "wb")) == NULL) {
+  if ((arquivo = fopen("estacoes.bin", "wb+")) == NULL) {
         printf("\n Falha no carregamento do arquivo.\n");
     }
     
@@ -38,7 +39,7 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
 
      //fwrite(&lixo, sizeof(char) ,1, arquivo);
   //------Fim escrita em arquivo do cabeçalho--------------
-  else{
+  //else{
        int i;
         for(i = 0; i < quantidadeEstacoes ; i++){
       //------------Início escrita dos valores da struct--------
@@ -51,15 +52,15 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
             fwrite(&codE,1,sizeof(int),arquivo);
 
             fwrite("|",sizeof(char) ,1, arquivo);
-            char nomeEs = strcpy(metro[i].nomeEstacao,nomeEs);
-            fwrite(nomEEs,1,sizeof(char),arquivo);
+            nomeEs = strcpy(metro[i].nomeEstacao,nomeEs);
+            fwrite(nomeEs,1,sizeof(char),arquivo);
             
            
             int codL = metro[i].codLinha;
             fwrite(&codL,1,sizeof(int),arquivo);
 
             fwrite("|",sizeof(char) ,1, arquivo);
-            char nomeLi = strcpy(metro[i].nomeLinha,nomeLi);
+            nomeLi = strcpy(metro[i].nomeLinha,nomeLi);
             fwrite(nomeLi,1,sizeof(char),arquivo);
             
             int codPro = metro[i].codProxEst;
@@ -72,12 +73,12 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
             fwrite(&dLin,1,sizeof(int),arquivo);
 
             int codEI = metro[i].codEstacaoInteg;
-            fwrite(codEI,1,sizeof(int),arquivo);
+            fwrite(&codEI,1,sizeof(int),arquivo);
 
 
               
             //------------Fim escrita dos valores da struct--------
-        }
+        //}
   }
       
        
