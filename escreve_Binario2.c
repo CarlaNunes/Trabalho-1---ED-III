@@ -19,6 +19,8 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
   char proxLista[8];//Dúvida aqui
   int tamReg = 0;
   char *nomeEs,*nomeLi;
+  nomeEs = (char*)malloc(sizeof(char));
+  nomeLi = (char*)malloc(sizeof(char));
 
   if ((arquivo = fopen("estacoes.bin", "wb+")) == NULL) {
         printf("\n Falha no carregamento do arquivo.\n");
@@ -78,13 +80,14 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
 
               
             //------------Fim escrita dos valores da struct--------
-        //}
+       // }
   }
       
-       
+           
+
+    free(nomeEs);
+    free(nomeLi);
     
-
-
     fclose(arquivo);
 
 }
