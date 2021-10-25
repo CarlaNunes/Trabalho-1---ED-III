@@ -10,7 +10,7 @@
 //Versão com impressão campo a campo
 //Também com preenchimento de campos "pequenos com lixo"-> Inserir 
 void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
-  printf("CHEGUEI AQUI 2!!!!");
+ 
   Metro metro[200];
 
   char status = '0',removido = '1';//Primeiro item do cabeçalho
@@ -18,67 +18,65 @@ void escreve_Binario2(FILE *arquivo, int cont,char nomeArquivoBinario[20]){
   int quantidadeEstacoes = cont;
   char lixo[] = "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$";//Terceiro item do cabeçalho
   char proxLista[8];//Dúvida aqui
-  int tamReg = 0;
+  int tamReg = 0, topoLista[8];
+  char delimitador = '|';
   char *nomeEs,*nomeLi;
+  int nroEstacoes = 0, nroParesEstacoes = 0; //Pegar o valores em ler_arquivo.c
   nomeEs = (char*)malloc(sizeof(char));
   nomeLi = (char*)malloc(sizeof(char));
 
-  if ((arquivo = fopen("estacoes.bin", "wb+")) == NULL) {
+  if ((arquivo = fopen("estacoes.bin", "wb")) == NULL) {
         printf("\n Falha no carregamento do arquivo.\n");
     }
     
   else{
 
      //------Início escrita em arquivo do cabeçalho--------------
-      printf("CHEGUEI AQUI 1!!!!");
-
-      fwrite("removido",sizeof(char),1,arquivo);
-      fwrite("Tamanho Registro",sizeof(char) ,1, arquivo);
-      fwrite("cod Estacao",sizeof(char) ,1, arquivo);
-      fwrite("cod Linha",sizeof(char) ,1, arquivo);
-      fwrite("codProx Estacao",sizeof(char) ,1, arquivo);
-      fwrite("distProx Estacao",sizeof(char) ,1, arquivo);
-      fwrite("codEst Integra",sizeof(char) ,1, arquivo);
-      fwrite("nome Estacao",sizeof(char) ,1, arquivo);
-      fwrite("nome Linha",sizeof(char) ,1, arquivo);
+ 
+      //printf("CHEGUEI AQUI!!!!!!");
+      fwrite(&status,sizeof(char),1,arquivo);
+      fwrite(&topoLista,sizeof(int),8, arquivo);
+      fwrite(&nroEstacoes,sizeof(int),4, arquivo);
+      fwrite(&nroParesEstacoes,sizeof(int),4, arquivo);
        //fwrite(&lixo, sizeof(char) ,1, arquivo);
   //------Fim escrita em arquivo do cabeçalho-------------- 
 
       int i;
         for(i = 0; i < quantidadeEstacoes ; i++){
       //------------Início escrita dos valores da struct--------
-           // removido = '1'; //Ver um mdodo de mudar depois.
+           // removido = '1'; //Ver um modo de mudar depois.
             //tamReg = strlen(metro); Dando erro aqui, depois resolver
 
-            fwrite(&removido,1,sizeof(char),arquivo);
+            fwrite(&removido,sizeof(char),1,arquivo);
 
 
             int codE = metro[i].codEstacao;
-            fwrite(&codE,1,sizeof(int),arquivo);
+            fwrite(&codE,sizeof(int),4,arquivo);
 
-            fwrite("|",sizeof(char) ,1, arquivo);
+            fwrite(&delimitador,sizeof(char),1,arquivo);
             nomeEs = strcpy(metro[i].nomeEstacao,nomeEs);
             fwrite(nomeEs,1,sizeof(char),arquivo);
+            //fwrite(&delimitador,sizeof(char) ,1, arquivo);
             
            
             int codL = metro[i].codLinha;
-            fwrite(&codL,1,sizeof(int),arquivo);
+            fwrite(&codL,sizeof(int),1,arquivo);
 
-            fwrite("|",sizeof(char) ,1, arquivo);
+            fwrite(&delimitador,1,sizeof(char),  arquivo);
             nomeLi = strcpy(metro[i].nomeLinha,nomeLi);
-            fwrite(nomeLi,1,sizeof(char),arquivo);
+            fwrite(nomeLi,sizeof(char),10,arquivo);
             
             int codPro = metro[i].codProxEst;
-            fwrite(&codPro,1,sizeof(int),arquivo);
+            fwrite(&codPro,sizeof(int),1,arquivo);
 
             int distP = metro[i].distanciaProxEst;
-            fwrite(&distP,1,sizeof(int),arquivo);
+            fwrite(&distP,sizeof(int),1,arquivo);
 
             int dLin = metro[i].codLinhaInteg;
-            fwrite(&dLin,1,sizeof(int),arquivo);
+            fwrite(&dLin,sizeof(int),1,arquivo);
 
             int codEI = metro[i].codEstacaoInteg;
-            fwrite(&codEI,1,sizeof(int),arquivo);
+            fwrite(&codEI,sizeof(int),1,arquivo);
 
 
               
