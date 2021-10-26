@@ -16,7 +16,7 @@ typedef char* string;
 
 int le_arquivo_novo(FILE *arquivo){
     int i = 0;
-    Metro metro[200];
+    Metro metro;
      int bufSize = 600;
    
     char cabecalho[bufSize];
@@ -27,6 +27,8 @@ int le_arquivo_novo(FILE *arquivo){
 
     //str = strdup(buffer);
 
+    //metro.nomeEstacao = (char*)malloc(sizeof(char));
+    //metro.nomeLinha = (char*)malloc(sizeof(char));
     if ((arquivo = fopen("estacoes.csv", "r")) == NULL) {
         printf("Erro ao abrir o arquivo.\n");
     } else {
@@ -37,70 +39,74 @@ int le_arquivo_novo(FILE *arquivo){
         
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
-            int aux = 0;  
-           
             
 
               str = strdup(buffer);
               token = strsep(&str,separador);
               
-              metro[i].codEstacao = atoi(token);
+              metro.codEstacao = atoi(token);
 
-              metro[i].nomeEstacao = (char*)malloc(sizeof(char));
+              metro.nomeEstacao = (char*)malloc(sizeof(char));
               token = strsep(&str,separador);
 
-              strcpy(metro[i].nomeEstacao,token);
+              strcpy(metro.nomeEstacao,token);
 
               token = strsep(&str,separador);
-              metro[i].codLinha = atoi(token);
+              metro.codLinha = atoi(token);
 
 
-              metro[i].nomeLinha = (char*)malloc(sizeof(char));
+              metro.nomeLinha = (char*)malloc(sizeof(char));
               token = strsep(&str,separador);
-              strcpy(metro[i].nomeLinha,token);
-
-              token = strsep(&str,separador);
-              metro[i].codProxEst = atoi(token);
+              strcpy(metro.nomeLinha,token);
 
               token = strsep(&str,separador);
-              metro[i].distanciaProxEst = atoi(token);
+              metro.codProxEst = atoi(token);
+
+              token = strsep(&str,separador);
+              metro.distanciaProxEst = atoi(token);
 
                token = strsep(&str,separador); 
-               metro[i].codLinhaInteg = atoi(token);
+               metro.codLinhaInteg = atoi(token);
 
                token = strsep(&str,separador); 
-               metro[i].codEstacaoInteg= atoi(token);
+               metro.codEstacaoInteg= atoi(token);
+
             i += 1;
             //free(str);
-             
-        }
-        //Testando
-        
-        for(i = 0; i < 200; i++){
+
+            //TESTANDO:
             printf("----------------------\n");
-            printf("codEstação: %d\n", metro[i].codEstacao);
-            printf("nomeEstação: %s\n", metro[i].nomeEstacao);
-            printf("codLinha: %d \n",metro[i].codLinha);
-            printf("NomeLinha: %s\n", metro[i].nomeLinha);
-            printf("codProxEst: %d \n",metro[i].codProxEst);
-            printf("distanciaProxEst: %d \n",metro[i].distanciaProxEst);
-            printf("codLinhainteg: %d \n",metro[i].codEstacaoInteg);
-            printf("codEstacaoInteg: %d \n",metro[i].codEstacaoInteg);
+            printf("codEstação: %d\n", metro.codEstacao);
+            printf("nomeEstação: %s\n", metro.nomeEstacao);
+            printf("codLinha: %d \n",metro.codLinha);
+            printf("NomeLinha: %s\n", metro.nomeLinha);
+            printf("codProxEst: %d \n",metro.codProxEst);
+            printf("distanciaProxEst: %d \n",metro.distanciaProxEst);
+            printf("codLinhainteg: %d \n",metro.codEstacaoInteg);
+            printf("codEstacaoInteg: %d \n",metro.codEstacaoInteg);   
+            escreve_Binario(arquivo,metro); 
+
+            free(metro.nomeEstacao);
+            free(metro.nomeLinha);
+        }
+        
+        
+       
             
             
             
-            printf("\n");
+            
+          
         
 
-        }
         
-        //free(metro[i].nomeEstacao);
-        //free(token);
-        //free(str);
+       
+       
 #endif
+        //free(metro.nomeEstacao);
+        //free(metro.nomeLinha);
         fclose(arquivo);
-        //free(metro[i].nomeEstacao);
-        //free(metro[i].nomeLinha);
+       
         //free(r);
     }
     
