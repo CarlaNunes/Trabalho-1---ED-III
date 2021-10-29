@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include<ctype.h>
+#include <ctype.h>
 
 //Struct com os dados do arquivo separado por campos:
 typedef struct metro{
+    char removido;
+	int tamanhoRegistro;
+	long long int proLista;
     int codEstacao;
     char *nomeEstacao;
     int codLinha;
@@ -15,14 +18,18 @@ typedef struct metro{
     int codEstacaoInteg;
 }Metro;
 
+//Estrutura auxiliar para contar as ocorrências das estações, se tiver mais de uma 1, 
+//teremos repetição.
 
+typedef struct estacoes{
+	char *nome;
+	int codEst;
+	int codProx; 
+}Estacoes;
 
-
-//Funções Fornecidas
-void binarioNaTela1(char *nomeArquivoBinario, char *nomeArquivoIndice);
-void scan_quote_string(char *str);
-void trim(char *str);
 
 //Funções dos autores
 
-int le_arquivo(FILE *arquivo);
+int le_arquivo_novo(FILE *arquivo);
+void escreve_Binario(FILE *arquivo, Metro metro);
+int conta_Estacoes(Metro metro,Estacoes estacoes);

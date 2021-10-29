@@ -17,7 +17,9 @@ typedef char* string;
 int le_arquivo_novo(FILE *arquivo){
     int i = 0;
     Metro metro;
-     int bufSize = 600;
+    Estacoes estacoes[200];
+    int bufSize = 600;
+    int tamanhoStruct = 0;
    
     char cabecalho[bufSize];
     char *token;
@@ -40,6 +42,7 @@ int le_arquivo_novo(FILE *arquivo){
         fgets (cabecalho, bufSize, arquivo); 
         while( fgets (buffer, bufSize, arquivo)!=NULL ) {
             
+              metro.tamanhoRegistro = 0;
 
               str = strdup(buffer);
               token = strsep(&str,separador);
@@ -47,8 +50,10 @@ int le_arquivo_novo(FILE *arquivo){
               metro.codEstacao = atoi(token);
 
               metro.nomeEstacao = (char*)malloc(sizeof(char));
+              estacoes[i].nome = (char*)malloc(sizeof(char));
               token = strsep(&str,separador);
 
+              strcpy(estacoes[i].nome,metro.nomeEstacao);
               strcpy(metro.nomeEstacao,token);
 
               token = strsep(&str,separador);
@@ -70,8 +75,14 @@ int le_arquivo_novo(FILE *arquivo){
 
                token = strsep(&str,separador); 
                metro.codEstacaoInteg= atoi(token);
+               escreve_Binario(arquivo,metro); 
 
+               metro.tamanhoRegistro = sizeof(metro);
+
+               free(estacoes[i].nome);
+               
             i += 1;
+
             //free(str);
 
             //TESTANDO:
@@ -84,10 +95,14 @@ int le_arquivo_novo(FILE *arquivo){
             printf("distanciaProxEst: %d \n",metro.distanciaProxEst);
             printf("codLinhainteg: %d \n",metro.codEstacaoInteg);
             printf("codEstacaoInteg: %d \n",metro.codEstacaoInteg);   
-            escreve_Binario(arquivo,metro); 
+            printf("\n Tamanho da Estrutura: %d",metro.tamanhoRegistro);
+            
+            
+            //printf("\n TAMANHO: %d",tamanhoStruct);
 
             free(metro.nomeEstacao);
             free(metro.nomeLinha);
+
         }
         
         
